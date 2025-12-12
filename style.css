@@ -1,0 +1,59 @@
+// Struktura klas (puste listy uczniów)
+const klasy = {
+  "8A": [],
+  "8B": [],
+  "7A": [],
+  "7B": [],
+  "6A": [],
+  "6B": []
+};
+
+// Funkcja dodawania ucznia
+function dodajUcznia(klasa, imie) {
+  if(klasy[klasa]) {
+    klasy[klasa].push({imie, oceny: [], punkty: 100});
+    wyswietlKlasy();
+  }
+}
+
+// Funkcja dodawania oceny
+function dodajOcene(klasa, imie, ocena) {
+  const uczen = klasy[klasa].find(u => u.imie === imie);
+  if(uczen) {
+    uczen.oceny.push(ocena);
+    wyswietlKlasy();
+  }
+}
+
+// Obliczanie średniej
+function srednia(uczen) {
+  if(uczen.oceny.length === 0) return 0;
+  const sum = uczen.oceny.reduce((a,b) => a+b, 0);
+  return (sum / uczen.oceny.length).toFixed(2);
+}
+
+// Wyświetlanie klas i uczniów w HTML
+function wyswietlKlasy() {
+  const kontener = document.getElementById('klasy');
+  kontener.innerHTML = '';
+  for(const [nazwa, uczniowie] of Object.entries(klasy)) {
+    const div = document.createElement('div');
+    div.classList.add('klasa');
+    div.innerHTML = `<h3>${nazwa}</h3>`;
+    
+    const ul = document.createElement('ul');
+    ul.classList.add('uczniowie');
+    
+    uczniowie.forEach(u => {
+      const li = document.createElement('li');
+      li.innerHTML = `${u.imie} | Średnia: ${srednia(u)} | Punkty: ${u.punkty}`;
+      ul.appendChild(li);
+    });
+    
+    div.appendChild(ul);
+    kontener.appendChild(div);
+  }
+}
+
+// Wywołanie na starcie, żeby w HTML były widoczne puste klasy
+wyswietlKlasy();
