@@ -16,7 +16,7 @@ function wyswietlKlasy() {
   container.innerHTML = ''; // czyścimy zawartość
 
   for (const nazwaKlasy in klasy) {
-    const klasaDiv = document.createElement('div');
+
     klasaDiv.className = 'klasa';
     
     const tytul = document.createElement('h2');
