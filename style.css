@@ -11,9 +11,8 @@ const klasy = {
 // Funkcja dodawania ucznia
 function dodajUcznia(klasa, imie) {
   if(klasy[klasa]) {
-    klasy[klasa].push({imie, oceny: [], punkty: 100});
-    wyswietlKlasy();
-  }
+    klasy[klasa].push({imie, oceny: [
+                        }
 }
 
 // Funkcja dodawania oceny
