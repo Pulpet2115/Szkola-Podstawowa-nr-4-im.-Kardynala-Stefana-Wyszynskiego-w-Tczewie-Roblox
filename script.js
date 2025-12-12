@@ -1,15 +1,61 @@
-const klasy = ["8A", "8B", "7A", "7B", "6A", "6B"];
+const classes = ["8A", "8B", "7A", "7B", "6A", "6B"];
+const data = {};
 
-klasy.forEach(klasa => {
-  const kontener = document.querySelector(`#${klasa} .uczniowie`);
+const container = document.getElementById("classes");
 
-  // tymczasowe przykładowe uczniowie (ty później będziesz mógł zmieniać)
-  const uczniowie = []; // pusta lista na start
+classes.forEach(cls => {
+  data[cls] = [];
 
-  uczniowie.forEach(u => {
-    const div = document.createElement("div");
-    div.textContent = `${u.imie} ${u.nazwisko} - Średnia: ${u.srednia ?? "brak"}`;
-    kontener.appendChild(div);
-  });
+  const card = document.createElement("div");
+  card.className = "class-card";
+
+  card.innerHTML = `
+    <div class="class-header">
+      <h2>${cls}</h2>
+      <button onclick="addStudent('${cls}')">➕ Dodaj ucznia</button>
+    </div>
+    <div id="${cls}-list"></div>
+  `;
+
+  container.appendChild(card);
 });
 
+function addStudent(cls) {
+  const name = prompt("Imię i nazwisko ucznia:");
+  if (!name) return;
+
+  data[cls].push({ name, grades: [] });
+  render(cls);
+}
+
+function addGrade(cls, index) {
+  const grade = Number(prompt("Ocena 1–6:"));
+  if (grade < 1 || grade > 6) return;
+
+  data[cls][index].grades.push(grade);
+  render(cls);
+}
+
+function avg(grades) {
+  if (grades.length === 0) return "-";
+  return (grades.reduce((a,b)=>a+b,0) / grades.length).toFixed(2);
+}
+
+function render(cls) {
+  const list = document.getElementById(`${cls}-list`);
+  list.innerHTML = "";
+
+  data[cls].forEach((s, i) => {
+    const div = document.createElement("div");
+    div.className = "student";
+
+    div.innerHTML = `
+      <span><b>${s.name}</b></span>
+      <span>Oceny: ${s.grades.join(", ") || "-"}</span>
+      <span>Średnia: ${avg(s.grades)}</span>
+      <button onclick="addGrade('${cls}', ${i})">➕ Ocena</button>
+    `;
+
+    list.appendChild(div);
+  });
+}
