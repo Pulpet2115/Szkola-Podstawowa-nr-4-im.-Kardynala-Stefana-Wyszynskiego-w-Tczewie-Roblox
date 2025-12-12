@@ -45,19 +45,6 @@ function wyswietlKlasy() {
 wyswietlKlasy();
 console.log("Strona gotowa, JS działa!");
 
-const toggleBtn = document.getElementById('toggle-dark');
-
-toggleBtn.addEventListener('click', () => {
-  document.body.classList.toggle('dark-mode');
-  
-  // Zmieniamy ikonę przycisku
-  if(document.body.classList.contains('dark-mode')){
-    toggleBtn.textContent = '☀️ Tryb jasny';
-  } else {
-    toggleBtn.textContent = '🌙 Tryb ciemny';
-  }
-});
-
 const toggle = document.getElementById('toggleDark');
 toggle.addEventListener('click', () => {
   document.body.classList.toggle('dark');
