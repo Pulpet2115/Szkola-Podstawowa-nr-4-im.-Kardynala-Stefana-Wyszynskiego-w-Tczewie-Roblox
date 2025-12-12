@@ -59,3 +59,18 @@ function render(cls) {
     list.appendChild(div);
   });
 }
+
+// TRYB CIEMNY
+const darkBtn = document.getElementById("darkToggle");
+
+darkBtn.addEventListener("click", () => {
+  document.body.classList.toggle("dark");
+});
+
+// PRZYCISKI "ZARZĄDZAJ"
+document.querySelectorAll(".zarzadzaj").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const klasa = btn.closest(".klasa").dataset.klasa;
+    alert("Zarządzanie klasą: " + klasa);
+  });
+});
